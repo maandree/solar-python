@@ -525,6 +525,8 @@ def solar_prediction(delta, requested, fun, epsilon = 0.000001, span = 0.01, t =
     t = julian_centuries() if t is None else t
     t1 = t2 = t
     v1 = v0 = fun(t)
+    
+    # Predicate time point to within a small time span
     while True:
         if abs(t2 - t) > span:
             return None
@@ -536,6 +538,8 @@ def solar_prediction(delta, requested, fun, epsilon = 0.000001, span = 0.01, t =
             break
         t1 = t2
         v2 = v1
+    
+    # Binary search the small time span for the exact time point
     for _itr in range(1000):
         tm = (t1 + t2) / 2
         v1 = fun(t1)
