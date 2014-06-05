@@ -2,9 +2,9 @@
 
 pkgname=solar-python
 pkgver=1
-pkgrel=1
+pkgrel=2
 pkgdesc="Solar data calculation and prediction library for Python"
-arch=(i686 x86_64)
+arch=(any)
 url="https://github.com/maandree/solar-python"
 license=('AGPL3')
 depends=(python3)
