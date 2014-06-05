@@ -107,9 +107,7 @@ uninstall:
 	-rmdir -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)"
 	-rm -- $(foreach M,$(SRC),"$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/__pycache__/$(M).cpython-$(PY_VER).pyo")
 	-rm -- $(foreach M,$(SRC),"$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/__pycache__/$(M).cpython-$(PY_VER).pyc")
-	-rmdir -- "$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/__pycache__"
 	-rm -- $(foreach M,$(SRC),"$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/$(M).py")
-	-rmdir -- "$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)"
 
 
 
