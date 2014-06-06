@@ -578,8 +578,6 @@ def future_equinox(t = None):
     '''
     Predict the time point of the next equinox
     
-    @param   delta:float  Iteration step size, negative for
-                          past event, positive for future event
     @param   t:float?     The time in Julian Centuries, `None`
                           for the current time
     @return  :float       The calculated time point
@@ -591,8 +589,6 @@ def past_equinox(t = None):
     '''
     Predict the time point of the previous equinox
     
-    @param   delta:float  Iteration step size, negative for
-                          past event, positive for future event
     @param   t:float?     The time in Julian Centuries, `None`
                           for the current time
     @return  :float       The calculated time point
