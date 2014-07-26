@@ -528,6 +528,7 @@ def solar_prediction(delta, requested, fun, epsilon = 0.000001, span = 0.01, t =
     @return  :float?              The calculated time point, `None` if none
                                   were found within the specified time span
     '''
+    fun = lambda t : fun(t) - requested
     t = julian_centuries() if t is None else t
     t1 = t2 = t
     v1 = v0 = fun(t)
@@ -538,9 +539,9 @@ def solar_prediction(delta, requested, fun, epsilon = 0.000001, span = 0.01, t =
             return None
         t2 += delta
         v2 = fun(t2)
-        if (v1 <= requested <= v2) or ((requested >= v1 >= v2) and (requested <= v0)):
+        if (v1 <= 0 <= v2) or ((0 >= v1 >= v2) and (0 <= v0)):
             break
-        if (v1 >= requested >= v2) or ((requested <= v1 <= v2) and (requested >= v0)):
+        if (v1 >= 0 >= v2) or ((0 <= v1 <= v2) and (0 >= v0)):
             break
         t1 = t2
         v2 = v1
@@ -554,12 +555,12 @@ def solar_prediction(delta, requested, fun, epsilon = 0.000001, span = 0.01, t =
         if abs(v1 - v2) < epsilon:
             return tm if abs(vm) < epsilon else None
         if v1 < v2:
-            if requested < vm:
+            if 0 < vm:
                 t2 = tm
             else:
                 t1 = tm
         elif v1 > v2:
-            if requested > vm:
+            if 0 > vm:
                 t2 = tm
             else:
                 t1 = tm
