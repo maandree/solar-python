@@ -18,6 +18,12 @@ from math import *
 import time
 
 
+SOLAR_APPARENT_RADIUS = 32 / 60
+'''
+:float  Approximate apperant size of the Sun in degrees
+'''
+
+
 SOLAR_ELEVATION_SUNSET_SUNRISE = 0.0
 '''
 :float  The Sun's elevation at sunset and sunrise,
