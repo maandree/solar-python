@@ -528,17 +528,17 @@ def solar_prediction(delta, requested, fun, epsilon = 0.000001, span = 0.01, t =
     @return  :float?              The calculated time point, `None` if none
                                   were found within the specified time span
     '''
-    fun = lambda t : fun(t) - requested
+    fun_ = lambda t : fun(t) - requested
     t = julian_centuries() if t is None else t
     t1 = t2 = t
-    v1 = v0 = fun(t)
+    v1 = v0 = fun_(t)
     
     # Predicate time point to within a small time span
     while True:
         if abs(t2 - t) > span:
             return None
         t2 += delta
-        v2 = fun(t2)
+        v2 = fun_(t2)
         if (v1 <= 0 <= v2) or ((0 >= v1 >= v2) and (0 <= v0)):
             break
         if (v1 >= 0 >= v2) or ((0 <= v1 <= v2) and (0 >= v0)):
@@ -549,9 +549,9 @@ def solar_prediction(delta, requested, fun, epsilon = 0.000001, span = 0.01, t =
     # Binary search the small time span for the exact time point
     for _itr in range(1000):
         tm = (t1 + t2) / 2
-        v1 = fun(t1)
-        v2 = fun(t2)
-        vm = fun(tm)
+        v1 = fun_(t1)
+        v2 = fun_(t2)
+        vm = fun_(tm)
         if abs(v1 - v2) < epsilon:
             return tm if abs(vm) < epsilon else None
         if v1 < v2:
