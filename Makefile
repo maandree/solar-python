@@ -27,7 +27,7 @@ PKGNAME ?= solar-python
 # The major version number of the current Python installation
 PY_MAJOR = 3
 # The minor version number of the current Python installation
-PY_MINOR = 4
+PY_MINOR = 5
 # The version number of the current Python installation without a dot
 PY_VER = $(PY_MAJOR)$(PY_MINOR)
 # The version number of the current Python installation with a dot
@@ -35,6 +35,13 @@ PY_VERSION = $(PY_MAJOR).$(PY_MINOR)
 
 # The modules this library is comprised of
 SRC = solar_python
+
+# Filename extension for -OO optimised python files
+ifeq ($(shell test $(PY_VER) -ge 35 ; echo $$?),0)
+PY_OPT2_EXT = opt-2.pyc
+else
+PY_OPT2_EXT = pyo
+endif
 
 
 
@@ -45,13 +52,13 @@ all: compiled optimised
 compiled: $(foreach M,$(SRC),src/__pycache__/$(M).cpython-$(PY_VER).pyc)
 
 .PHONY: optimised
-optimised: $(foreach M,$(SRC),src/__pycache__/$(M).cpython-$(PY_VER).pyo)
+optimised: $(foreach M,$(SRC),src/__pycache__/$(M).cpython-$(PY_VER).$(PY_OPT2_EXT))
 
 
 src/__pycache__/%.cpython-$(PY_VER).pyc: src/%.py
 	python -m compileall $<
 
-src/__pycache__/solar_python.cpython-$(PY_VER).pyo: src/solar_python.py
+src/__pycache__/solar_python.cpython-$(PY_VER).$(PY_OPT2_EXT): src/solar_python.py
 	python -OO -m compileall $<
 
 
@@ -80,7 +87,7 @@ install-compiled: $(foreach M,$(SRC),src/__pycache__/$(M).cpython-$(PY_VER).pyc)
 	install -m644 $^ -- "$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/__pycache__"
 
 .PHONY: install-optimised
-install-optimised: $(foreach M,$(SRC),src/__pycache__/$(M).cpython-$(PY_VER).pyo)
+install-optimised: $(foreach M,$(SRC),src/__pycache__/$(M).cpython-$(PY_VER).$(PY_OPT2_EXT))
 	install -dm755 -- "$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/__pycache__"
 	install -m644 $^ -- "$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/__pycache__"
 
@@ -105,7 +112,7 @@ uninstall:
 	-rm -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)/LICENSE"
 	-rm -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)/COPYING"
 	-rmdir -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)"
-	-rm -- $(foreach M,$(SRC),"$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/__pycache__/$(M).cpython-$(PY_VER).pyo")
+	-rm -- $(foreach M,$(SRC),"$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/__pycache__/$(M).cpython-$(PY_VER).$(PY_OPT2_EXT)")
 	-rm -- $(foreach M,$(SRC),"$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/__pycache__/$(M).cpython-$(PY_VER).pyc")
 	-rm -- $(foreach M,$(SRC),"$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/$(M).py")
 
