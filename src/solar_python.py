@@ -74,7 +74,7 @@ SOLAR_ELEVATION_RANGE_ASTRONOMICAL_TWILIGHT = (-18.0, -12.0)
 
 # The following functions are used to calculate the result for `sun`
 # (most of them) but could be used for anything else. There name is
-# should tell you enough, `t` (and `noon`) is in Julian centuries
+# should tell you enough, `t` (and `noon`) is in Julian Centuries
 # except for in the convertion methods.
 
 
@@ -529,7 +529,7 @@ def solar_prediction(delta, requested, fun, epsilon = 0.000001, span = 0.01, t =
                                   calculate the time point of occurrence
     @param   fun:(t:float)→float  Function that calculate the data of interest
     @param   epsilon:float        Error tolerance for `requested`
-    @param   span:float           The number of Julian centuries (0,01 for
+    @param   span:float           The number of Julian Centuries (0,01 for
                                   one year) to restrict the search to
     @param   t:float?             The time in Julian Centuries, `None` for
                                   the current time
@@ -624,7 +624,7 @@ def future_past_solstice(delta, t = None):
     '''
     e = 0.00001
     fun = solar_declination
-    dfun = lambda t : (fun(t + e) - fun(t - e)) / 2
+    dfun = lambda t : (fun(t + e) - fun(t - e)) / (2 * e)
     return solar_prediction(delta, 0, dfun, t = t)
 
 
@@ -726,8 +726,9 @@ def future_past_elevation_derivative(delta, latitude, longitude, derivative, t =
     @return  :float?           The calculated time point, `None` if
                                none were found within a year
     '''
+    e = 0.00001
     fun = lambda t : solar_elevation(latitude, longitude, t)
-    dfun = lambda t : (fun(t + e) - fun(t - e)) / 2
+    dfun = lambda t : (fun(t + e) - fun(t - e)) / (2 * e)
     return solar_prediction(delta, derivative, dfun, t = t)
 
 
