@@ -14,8 +14,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from math import *
-import time
 
 
 SOLAR_APPARENT_RADIUS = 32 / 60
@@ -146,6 +144,7 @@ def epoch():
     
     @return  :float  The current POSIX time
     '''
+    import time
     return time.time()
 
 
@@ -174,7 +173,8 @@ def radians(deg):
     @param   deg:float  The angle in degrees
     @return  :float     The angle in radians
     '''
-    return deg * pi / 180
+    import math
+    return deg * math.pi / 180
 
 
 def degrees(rad):
@@ -184,7 +184,8 @@ def degrees(rad):
     @param   rad:float  The angle in radians
     @return  :float     The angle in degrees
     '''
-    return rad * 180 / pi
+    import math
+    return rad * 180 / math.pi
 
 
 def sun_geometric_mean_longitude(t):
@@ -239,10 +240,11 @@ def sun_equation_of_centre(t):
     @param   t:float  The time in Julian Centuries
     @return  :float   The Sun's equation of the centre, in radians
     '''
+    import math
     a = sun_geometric_mean_anomaly(t)
-    rc = sin(1 * a) * (-0.000014 * t ** 2 - 0.004817 * t + 1.914602)
-    rc += sin(2 * a) * (-0.000101 * t + 0.019993)
-    rc += sin(3 * a) * 0.000289
+    rc = math.sin(1 * a) * (-0.000014 * t ** 2 - 0.004817 * t + 1.914602)
+    rc += math.sin(2 * a) * (-0.000101 * t + 0.019993)
+    rc += math.sin(3 * a) * 0.000289
     return radians(rc)
 
 
@@ -264,8 +266,9 @@ def sun_apparent_longitude(t):
     @param   t:float  The time in Julian Centuries
     @return  :float   The longitude, in radians
     '''
+    import math
     rc = degrees(sun_real_longitude(t)) - 0.00569
-    rc -= 0.00478 * sin(radians(-1934.136 * t + 125.04))
+    rc -= 0.00478 * math.sin(radians(-1934.136 * t + 125.04))
     return radians(rc)
 
 
@@ -291,8 +294,9 @@ def corrected_mean_ecliptic_obliquity(t):
     @param   t:float  The time in Julian Centuries
     @return  :float   The mean obliquity, in radians
     '''
+    import math
     rc = -1934.136 * t + 125.04
-    rc = 0.00256 * cos(radians(rc))
+    rc = 0.00256 * math.cos(radians(rc))
     rc += degrees(mean_ecliptic_obliquity(t))
     return radians(rc)
 
@@ -304,9 +308,10 @@ def solar_declination(t):
     @param   t:float  The time in Julian Centuries
     @return  :float   The Sun's declination, in radians
     '''
-    rc = sin(corrected_mean_ecliptic_obliquity(t))
-    rc *= sin(sun_apparent_longitude(t))
-    return asin(rc)
+    import math
+    rc = math.sin(corrected_mean_ecliptic_obliquity(t))
+    rc *= math.sin(sun_apparent_longitude(t))
+    return math.asin(rc)
 
 
 def equation_of_time(t):
@@ -317,15 +322,16 @@ def equation_of_time(t):
     @param   t:float  The time in Julian Centuries
     @return  :float   The equation of time, in degrees
     '''
+    import math
     l = sun_geometric_mean_longitude(t)
     e = earth_orbit_eccentricity(t)
     m = sun_geometric_mean_anomaly(t)
     y = corrected_mean_ecliptic_obliquity(t)
-    y = tan(y / 2) ** 2
-    rc = y * sin(2 * l)
-    rc += (4 * y * cos(2 * l) - 2) * e * sin(m)
-    rc -= 0.5 * y ** 2 * sin(4 * l)
-    rc -= 1.25 * e ** 2 * sin(2 * m)
+    y = math.tan(y / 2) ** 2
+    rc = y * math.sin(2 * l)
+    rc += (4 * y * math.cos(2 * l) - 2) * e * math.sin(m)
+    rc -= 0.5 * y ** 2 * math.sin(4 * l)
+    rc -= 1.25 * e ** 2 * math.sin(2 * m)
     return 4 * degrees(rc)
 
 
@@ -339,12 +345,13 @@ def hour_angle_from_elevation(latitude, declination, elevation):
     @param   hour_angle:float   The Sun's elevation, in degrees
     @return  :float             The solar hour angle, in degrees
     '''
+    import math
     if elevation == 0:
         return 0
-    rc = cos(abs(elevation))
-    rc -= sin(radians(latitude)) * sin(declination)
-    rc /= cos(radians(latitude)) * cos(declination)
-    rc = acos(rc)
+    rc = math.cos(abs(elevation))
+    rc -= math.sin(radians(latitude)) * math.sin(declination)
+    rc /= math.cos(radians(latitude)) * math.cos(declination)
+    rc = math.acos(rc)
     return -rc if (rc < 0) == (elevation < 0) else rc;
 
 
@@ -358,10 +365,11 @@ def elevation_from_hour_angle(latitude, declination, hour_angle):
     @param   hour_angle:float   The solar hour angle, in degrees
     @return  :float             The Sun's elevation, in degrees
     '''
-    rc = cos(radians(latitude))
-    rc *= cos(hour_angle) * cos(declination)
-    rc += sin(radians(latitude)) * sin(declination)
-    return asin(rc)
+    import math
+    rc = math.cos(radians(latitude))
+    rc *= math.cos(hour_angle) * math.cos(declination)
+    rc += math.sin(radians(latitude)) * math.sin(declination)
+    return math.asin(rc)
 
 
 def time_of_solar_noon(t, longitude):
@@ -762,6 +770,7 @@ def past_elevation_derivative(latitude, longitude, derivative, t = None):
 
 # TODO: This algorithm is imprecise, gives an incorrent sunrise and I do not fully know its behaviour
 def sunrise_equation(latitude, longitude, t = None):
+    import math
     # Calculate Julian Cycle
     j_cent = julian_centuries() if t is None else t
     j_date = julian_centuries_to_julian_day(j_cent)
@@ -780,17 +789,17 @@ def sunrise_equation(latitude, longitude, t = None):
     ecliptic_longitude = (solar_mean_anomaly + 102.9372 + equation_of_centre + 180) % 360
     
     # Calculate solar transit
-    solar_transit  = approx_solar_noon + 0.0053 * sin(solar_mean_anomaly)
-    solar_transit -= 0.0069 * sin(2 * ecliptic_longitude)
+    solar_transit  = approx_solar_noon + 0.0053 * math.sin(solar_mean_anomaly)
+    solar_transit -= 0.0069 * math.sin(2 * ecliptic_longitude)
     
     # Calculate solar declination
-    declination = asin(sin(ecliptic_longitude) * sin(radians(23.45)))
+    declination = math.asin(math.sin(ecliptic_longitude) * math.sin(radians(23.45)))
     
     # Calculate solar hour angle
-    hour_angle  = sin(radians(-0.83))
-    hour_angle -= sin(latitude) * sin(declination)
-    hour_angle /= cos(latitude) * cos(declination)
-    hour_angle = degrees(acos(hour_angle))
+    hour_angle  = math.sin(radians(-0.83))
+    hour_angle -= math.sin(latitude) * math.sin(declination)
+    hour_angle /= math.cos(latitude) * math.cos(declination)
+    hour_angle = degrees(math.acos(hour_angle))
     
     # Calculate time of sunset and sunrise
     sunset  = 2451545.0009 + (hour_angle + longitude) / 360
