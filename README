@@ -1,4 +1,14 @@
-Python library that can be used to calculate information
-about the Sun's position and related data and predict at
-when time solar events occur.
+NAME
+	solar-python - Solar data calculation and prediction library for Python
+
+DESCRIPTION
+	Python library that can be used to calculate information about the Sun's
+	position and related data and predict at when time solar events occur.
+
+RATIONALE
+	This was needed by blueshift(1) to select appropriate colour temperature.
+	There is no reason not to put it in its own library.
+
+SEE ALSO
+	blueshift(1), redshift(1)
 
