@@ -5,24 +5,24 @@
 
 
 # The package path prefix, if you want to install to another root, set DESTDIR to that root
-PREFIX ?= /usr
+PREFIX = /usr
 # The library path excluding prefix
-LIB ?= /lib
+LIB = /lib
 # The resource path excluding prefix
-DATA ?= /share
+DATA = /share
 # The library path including prefix
-LIBDIR ?= $(PREFIX)$(LIB)
+LIBDIR = $(PREFIX)$(LIB)
 # The resource path including prefix
-DATADIR ?= $(PREFIX)$(DATA)
+DATADIR = $(PREFIX)$(DATA)
 # The generic documentation path including prefix
-DOCDIR ?= $(DATADIR)/doc
+DOCDIR = $(DATADIR)/doc
 # The info manual documentation path including prefix
-INFODIR ?= $(DATADIR)/info
+INFODIR = $(DATADIR)/info
 # The license base path including prefix
-LICENSEDIR ?= $(DATADIR)/licenses
+LICENSEDIR = $(DATADIR)/licenses
 
 # The name of the package as it should be installed
-PKGNAME ?= solar-python
+PKGNAME = solar-python
 
 # The major version number of the current Python installation
 PY_MAJOR = 3
@@ -120,5 +120,5 @@ uninstall:
 
 .PHONY: clean
 clean:
-	-rm -r src/__pycache__
+	-rm -r src/__pycache__ obj bin
 
