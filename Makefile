@@ -106,10 +106,10 @@ bin/%.ps: doc/info/%.texinfo
 
 
 .PHONY: install
-install: install-base
+install: install-base install-info
 
 .PHONY: install-all
-install-all: install-base
+install-all: install-base install-doc
 
 .PHONY: install-base
 install-base: install-lib install-copyright
