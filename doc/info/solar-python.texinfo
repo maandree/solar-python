@@ -1,0 +1,551 @@
+\input texinfo   @c -*-texinfo-*-
+
+@c %**start of header
+@setfilename solar-python.info
+@settitle solar-python
+@afourpaper
+@documentencoding UTF-8
+@documentlanguage en
+@finalout
+@c %**end of header
+
+
+@dircategory Astronomy
+@direntry
+* solar-python: (solar-python).      Solar data calculation and prediction library for Python
+@end direntry
+
+
+@copying
+Copyright @copyright{} 2015 Mattias Andrée
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts. A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+@end quotation
+@end copying
+
+@ifnottex
+@node Top
+@top solar-python -- Solar data calculation and prediction library for Python
+@insertcopying
+@end ifnottex
+
+@titlepage
+@title solar-python
+@subtitle Solar data calculation and prediction library for Python
+@author by Mattias Andrée (maandree)
+
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@page
+@end titlepage
+
+@contents
+
+
+
+@menu
+* Overview::                        Brief overview of @command{solar-python}.
+* Constants::                       List of constants.
+* Calendar functions::              List of calendar functions.
+* Observation functions::           List of solar data observation functions.
+* Prediction functions::            List of solar data prediction functions.
+* Miscellaneous functions::         List of miscellaneous functions.
+* GNU Free Documentation License::  Copying and sharing this manual.
+@end menu
+
+
+
+@node Overview
+@chapter Overview
+
+@command{solar-python} is Python 3 library that can
+be used to calculate information about the Sun's
+position and related data and predict at when time
+solar events occur.
+
+Import the module @code{solar_python} to use the
+library.
+
+Documentation is available by the command @code{help}
+in python.
+
+
+
+@node Constants
+@chapter Constants
+
+Importing @code{solar_python} makes the following
+constants available:
+
+@table @code
+@item SOLAR_APPARENT_RADIUS = 32 / 60
+Approximate apparent size of the Sun in degrees.
+@item SOLAR_ELEVATION_SUNSET_SUNRISE = 0.0
+The Sun's elevation at sunset and sunrise, measured
+in degrees.
+@item SOLAR_ELEVATION_CIVIL_DUSK_DAWN = -6.0
+The Sun's elevation at civil dusk and civil dawn,
+measured in degrees
+@item SOLAR_ELEVATION_NAUTICAL_DUSK_DAWN = -12.0
+The Sun's elevation at nautical dusk and nautical
+dawn, measured in degrees
+@item SOLAR_ELEVATION_ASTRONOMICAL_DUSK_DAWN = -18.0
+The Sun's elevation at astronomical dusk and
+astronomical dawn, measured in degrees
+@item SOLAR_ELEVATION_RANGE_TWILIGHT = (-18.0, 0.0)
+The Sun's lowest and highest elevation during all
+periods of twilight, measured in degrees
+@item SOLAR_ELEVATION_RANGE_CIVIL_TWILIGHT = (-6.0, 0.0)
+The Sun's lowest and highest elevation during
+civil twilight, measured in degrees
+@item SOLAR_ELEVATION_RANGE_NAUTICAL_TWILIGHT = (-12.0, -6.0)
+The Sun's lowest and highest elevation during
+nautical twilight, measured in degrees
+@item SOLAR_ELEVATION_RANGE_ASTRONOMICAL_TWILIGHT = (-18.0, -12.0)
+The Sun's lowest and highest elevation during
+astronomical twilight, measured in degrees
+@end table
+
+
+
+@node Calendar functions
+@chapter Calendar functions
+
+Importing @code{solar_python} makes the following
+calendar conversion functions available. All
+parameters are of the type @code{float}, and
+all functions return @code{float}.
+
+@table @code
+@item julian_day_to_epoch(t)
+Converts a Julian Day timestamp, @code{t}, to a POSIX time timestamp.
+@item epoch_to_julian_day(t)
+Converts a POSIX time timestamp, @code{t}, to a Julian Day timestamp
+@item julian_day_to_julian_centuries(t)
+Converts a Julian Day timestamp, @code{t}, to a Julian Centuries timestamp.
+@item julian_centuries_to_julian_day(t)
+Converts a Julian Centuries timestamp, @code{t}, to a Julian Day timestamp.
+@item epoch_to_julian_centuries(t)
+Converts a POSIX time timestamp, @code{t}, to a Julian Centuries timestamp.
+@item julian_centuries_to_epoch(t)
+Converts a Julian Centuries timestamp, @code{t}, to a POSIX time timestamp.
+@end table
+
+@code{solar_python} also makes the following
+functions available. All parameters are of the
+type @code{float}, and all functions return
+@code{float}.
+
+@table @code
+@item epoch()
+Get current POSIX time.
+@item julian_day()
+Get current Julian Day time.
+@item julian_centuries()
+Get current Julian Centuries time (100 Julian days since J2000.)
+@end table
+
+
+
+@node Observation functions
+@chapter Observation functions
+
+Importing @code{solar_python} makes the following
+solar data observation functions available. All
+parameters are of the type @code{float}, and
+all functions return @code{float}. All parameters
+named @code{t} or @code{noon} is the time in
+Julian Centuries. These are low-level functions.
+
+@table @code
+@item sun_geometric_mean_longitude(t)
+Calculates the Sun's geometric mean longitude.
+@item sun_geometric_mean_anomaly(t)
+Calculates the Sun's geometric mean anomaly, in radians.
+@item earth_orbit_eccentricity(t)
+Calculates the Earth's orbit eccentricity.
+@item sun_equation_of_centre(t)
+Calculates the Sun's equation of the centre --- the
+difference between the true anomaly and the mean
+anomaly --- in radians.
+@item sun_real_longitude(t)
+Calculates the Sun's real longitudinal position, in radians.
+@item sun_apparent_longitude(t)
+Calculates the Sun's apparent longitudinal position, in radians.
+@item mean_ecliptic_obliquity(t)
+Calculates the uncorrected mean ecliptic obliquity of the Sun's
+apparent motion without variation correction, in radians.
+@item corrected_mean_ecliptic_obliquity(t)
+Calculates the mean ecliptic obliquity of the Sun's apparent
+motion with variation correction, in radians.
+@item solar_declination(t)
+Calculates the Sun's declination, in radians.
+@item equation_of_time(t)
+Calculates the equation of time --- the discrepancy
+between apparent and mean solar time --- in degrees.
+@item hour_angle_from_elevation(latitude, declination, elevation)
+Calculates the solar hour angle, in radians, from the Sun's
+elevation, in radians. The Sun's elevation is gived by the
+parameter @code{elevation}. This functions requires two
+additional parameters:
+@table @code
+@item longitude
+The longitude in degrees eastwards from Greenwich,
+negative for westwards.
+@item declination
+The declination, in radians.
+@end table
+@item elevation_from_hour_angle(latitude, declination, hour_angle)
+Calculates the Sun's elevation, in radians, from the solar
+hour angle, in radians. The solar hour angle is gived by the
+parameter @code{hour_angle}. This functions requires two
+additional parameters:
+@table @code
+@item longitude
+The longitude in degrees eastwards from Greenwich,
+negative for westwards.
+@item declination
+The declination, in radians.
+@end table
+@item time_of_solar_noon(t, longitude)
+Calculates the time, in Julian Centuries, of the solar
+noon the closest to the time @code{t}. This functions
+requires one additional parameter:
+@table @code
+@item longitude
+The longitude in degrees eastwards from Greenwich,
+negative for westwards.
+@end table
+@item time_of_solar_elevation(t, noon, latitude, longitude, elevation)
+Calculates the time, in Julian Centuries, the Sun has
+a specified apparent elevation, expressed in radians
+via the parameter @code{elevation}, at a geographical
+position, expressed in degrees by the parameters:
+@table @code
+@item latitude
+The latitude in degrees northwards from the equator,
+negative for southwards.
+@item longitude
+The longitude in degrees eastwards from Greenwich,
+negative for westwards.
+@end table
+@noindent
+The function require two additional parameter:
+@table @code
+@item t
+A time, in Julian Centuries, close to the sought time.
+@item noon
+The time, in Julian Centuries, of the closest solar noon.
+@end table
+@item solar_elevation_from_time(t, latitude, longitude):
+Calculates the Sun's elevation, in radians, as apparent
+from a geographical position, expressed in degrees by the
+parameters:
+@table @code
+@item latitude
+The latitude in degrees northwards from the equator,
+negative for southwards.
+@item longitude
+The longitude in degrees eastwards from Greenwich,
+negative for westwards.
+@end table
+@end table
+
+The library also provides the high-level functions:
+@table @code
+@item solar_elevation(latitude, longitude, t = None)
+Calculates the Sun's elevation, in degreesm as apparent
+from a geographical position, expressed in degrees by the parameters:
+@table @code
+@item latitude
+The latitude in degrees northwards from the equator,
+negative for southwards.
+@item longitude
+The longitude in degrees eastwards from Greenwich,
+negative for westwards.
+@end table
+@noindent
+The function also requires to the in Julian Centuries,
+provided via the parameter @code{t}. If @code{t} is
+@code{None}, the current time is used.
+@item have_sunrise_and_sunset(latitude, t = None)
+Determine whether solar declination currently is
+so that there can be sunrises and sunsets. If not,
+you either have 24-hour daytime or 24-hour nighttime.
+The function requires to the in Julian Centuries,
+provided via the parameter @code{t}, and the latitude,
+provided via the parameter @code{latitude}, in degrees
+northwards from the equator, negative for southwards.
+If @code{t} is @code{None}, the current time is used.
+
+@item is_summer(latitude, t = None)
+Determine whether it is summer on the hemisphere
+ont which you are located.
+The function requires to the in Julian Centuries,
+provided via the parameter @code{t}, and the latitude,
+provided via the parameter @code{latitude}, in degrees
+northwards from the equator, negative for southwards.
+If @code{t} is @code{None}, the current time is used.
+
+@item is_winter(latitude, t = None)
+Determine whether it is winter on the hemisphere
+ont which you are located.
+The function requires to the in Julian Centuries,
+provided via the parameter @code{t}, and the latitude,
+provided via the parameter @code{latitude}, in degrees
+northwards from the equator, negative for southwards.
+If @code{t} is @code{None}, the current time is used.
+@end table
+
+
+
+@node Prediction functions
+@chapter Prediction functions
+
+
+
+@node Miscellaneous functions
+@chapter Miscellaneous functions
+
+Importing @code{solar_python} makes the following
+functions available:
+@table @code
+@item radians(deg):
+Convert an angle from degrees to radians.
+@item degrees(rad):
+Convert an angle from radians to degrees.
+@end table
+
+
+
+@node GNU Free Documentation License
+@appendix GNU Free Documentation License
+@include fdl.texinfo
+
+@bye
+
+
+
+
+
+-----------------------------  Prediction functions  -----------------------------
+
+def solar_prediction(delta, requested, fun, epsilon = 0.000001, span = 0.01, t = None):
+    '''
+    Predict the time point of the next or previous
+    time an arbitrary condition is meet
+    
+    @param   delta:float          Iteration step size, negative for past
+                                  event, positive for future event
+    @param   requested:float      The value returned by `fun` for which to
+                                  calculate the time point of occurrence
+    @param   fun:(t:float)→float  Function that calculate the data of interest
+    @param   epsilon:float        Error tolerance for `requested`
+    @param   span:float           The number of Julian centuries (0,01 for
+                                  one year) to restrict the search to
+    @param   t:float?             The time in Julian Centuries, `None` for
+                                  the current time
+    @return  :float?              The calculated time point, `None` if none
+                                  were found within the specified time span
+    '''
+
+def future_past_equinox(delta, t = None):
+    '''
+    Predict the time point of the next or previous equinox
+    
+    @param   delta:float  Iteration step size, negative for
+                          past event, positive for future event
+    @param   t:float?     The time in Julian Centuries, `None`
+                          for the current time
+    @return  :float       The calculated time point
+    '''
+    return solar_prediction(delta, 0, solar_declination, t = t)
+
+
+def future_equinox(t = None):
+    '''
+    Predict the time point of the next equinox
+    
+    @param   t:float?     The time in Julian Centuries, `None`
+                          for the current time
+    @return  :float       The calculated time point
+    '''
+    return future_past_equinox(0.01 / 2000, t)
+    
+
+def past_equinox(t = None):
+    '''
+    Predict the time point of the previous equinox
+    
+    @param   t:float?     The time in Julian Centuries, `None`
+                          for the current time
+    @return  :float       The calculated time point
+    '''
+    return future_past_equinox(0.01 / -2000, t)
+
+
+
+def future_past_solstice(delta, t = None):
+    '''
+    Predict the time point of the next or previous solstice
+    
+    @param   delta:float  Iteration step size, negative for
+                          past event, positive for future event
+    @param   t:float?     The time in Julian Centuries, `None`
+                          for the current time
+    @return  :float       The calculated time point
+    '''
+    e = 0.00001
+    fun = solar_declination
+    dfun = lambda t : (fun(t + e) - fun(t - e)) / 2
+    return solar_prediction(delta, 0, dfun, t = t)
+
+
+def future_solstice(t = None):
+    '''
+    Predict the time point of the next solstice
+    
+    @param   t:float?  The time in Julian Centuries,
+                       `None` for the current time
+    @return  :float    The calculated time point
+    '''
+    return future_past_solstice(0.01 / 2000, t)
+    
+
+def past_solstice(t = None):
+    '''
+    Predict the time point of the previous solstice
+    
+    @param   t:float?  The time in Julian Centuries,
+                       `None` for the current time
+    @return  :float    The calculated time point
+    '''
+    return future_past_solstice(0.01 / -2000, t)
+
+
+
+def future_past_elevation(delta, latitude, longitude, elevation, t = None):
+    '''
+    Predict the time point of the next or previous time
+    the Sun reaches or reached a specific elevation
+    
+    @param   delta:float      Iteration step size, negative for past
+                              event, positive for future event
+    @param   latitude:float   The latitude in degrees northwards from
+                              the equator, negative for southwards
+    @param   longitude:float  The longitude in degrees eastwards from
+                              Greenwich, negative for westwards
+    @param   elevation:float  The elevation of interest
+    @param   t:float?         The time in Julian Centuries, `None`
+                              for the current time
+    @return  :float?          The calculated time point, `None` if
+                              none were found within a year
+    '''
+    fun = lambda t : solar_elevation(latitude, longitude, t)
+    return solar_prediction(delta, elevation, fun, t = t)
+
+
+def future_elevation(latitude, longitude, elevation, t = None):
+    '''
+    Predict the time point of the next time the Sun
+    reaches a specific elevation
+    
+    @param   latitude:float   The latitude in degrees northwards from
+                              the equator, negative for southwards
+    @param   longitude:float  The longitude in degrees eastwards from
+                              Greenwich, negative for westwards
+    @param   elevation:float  The elevation of interest
+    @param   t:float?         The time in Julian Centuries, `None`
+                              for the current time
+    @return  :float?          The calculated time point, `None` if
+                              none were found within a year
+    '''
+    return future_past_elevation(0.01 / 2000, latitude, longitude, elevation, t)
+    
+
+def past_elevation(latitude, longitude, elevation, t = None):
+    '''
+    Predict the time point of the previous time the Sun
+    reached a specific elevation
+    
+    @param   latitude:float   The latitude in degrees northwards from
+                              the equator, negative for southwards
+    @param   longitude:float  The longitude in degrees eastwards from
+                              Greenwich, negative for westwards
+    @param   elevation:float  The elevation of interest
+    @param   t:float?         The time in Julian Centuries, `None`
+                              for the current time
+    @return  :float?          The calculated time point, `None` if
+                              none were found within a year
+    '''
+    return future_past_elevation(0.01 / -2000, latitude, longitude, elevation, t)
+
+
+
+def future_past_elevation_derivative(delta, latitude, longitude, derivative, t = None):
+    '''
+    Predict the time point of the next or previous time the
+    Sun reaches or reached a specific elevation derivative
+    
+    @param   delta:float       Iteration step size, negative for past
+                               event, positive for future event
+    @param   latitude:float    The latitude in degrees northwards from
+                               the equator, negative for southwards
+    @param   longitude:float   The longitude in degrees eastwards from
+                               Greenwich, negative for westwards
+    @param   derivative:float  The elevation derivative value of interest
+    @param   t:float?          The time in Julian Centuries, `None`
+                               for the current time
+    @return  :float?           The calculated time point, `None` if
+                               none were found within a year
+    '''
+    fun = lambda t : solar_elevation(latitude, longitude, t)
+    dfun = lambda t : (fun(t + e) - fun(t - e)) / 2
+    return solar_prediction(delta, derivative, dfun, t = t)
+
+
+def future_elevation_derivative(latitude, longitude, derivative, t = None):
+    '''
+    Predict the time point of the next time the
+    Sun reaches a specific elevation derivative
+    
+    @param   latitude:float    The latitude in degrees northwards from
+                               the equator, negative for southwards
+    @param   longitude:float   The longitude in degrees eastwards from
+                               Greenwich, negative for westwards
+    @param   derivative:float  The elevation derivative value of interest
+    @param   t:float?          The time in Julian Centuries, `None`
+                               for the current time
+    @return  :float?           The calculated time point, `None` if
+                               none were found within a year
+    '''
+    return future_past_elevation_derivative(0.01 / 2000, latitude, longitude, derivative, t)
+    
+
+def past_elevation_derivative(latitude, longitude, derivative, t = None):
+    '''
+    Predict the time point of the previous time
+    the Sun reached a specific elevation derivative
+    
+    @param   latitude:float    The latitude in degrees northwards from
+                               the equator, negative for southwards
+    @param   longitude:float   The longitude in degrees eastwards from
+                               Greenwich, negative for westwards
+    @param   derivative:float  The elevation derivative value of interest
+    @param   t:float?          The time in Julian Centuries, `None`
+                               for the current time
+    @return  :float?           The calculated time point, `None`
+                               if none were found within a year
+    '''
+    return future_past_elevation_derivative(0.01 / -2000, latitude, longitude, derivative, t)
+
+
+# This algorithm is imprecise, gives an incorrent sunrise and I do not fully know its behaviour
+def sunrise_equation(latitude, longitude, t = None):

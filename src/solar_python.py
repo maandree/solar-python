@@ -1,5 +1,5 @@
 # solar-python — Solar data calculation and prediction library for Python
-# Copyright © 2014  Mattias Andrée (maandree@member.fsf.org)
+# Copyright © 2014, 2015  Mattias Andrée (maandree@member.fsf.org)
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,7 @@
 
 SOLAR_APPARENT_RADIUS = 32 / 60
 '''
-:float  Approximate apperant size of the Sun in degrees
+:float  Approximate apparent size of the Sun in degrees
 '''
 
 
@@ -341,9 +341,9 @@ def hour_angle_from_elevation(latitude, declination, elevation):
     
     @param   longitude:float    The longitude in degrees eastwards
                                 from Greenwich, negative for westwards
-    @param   declination:float  The declination, in degrees
-    @param   hour_angle:float   The Sun's elevation, in degrees
-    @return  :float             The solar hour angle, in degrees
+    @param   declination:float  The declination, in radians
+    @param   elevation:float    The Sun's elevation, in radians
+    @return  :float             The solar hour angle, in radians
     '''
     import math
     if elevation == 0:
@@ -361,9 +361,9 @@ def elevation_from_hour_angle(latitude, declination, hour_angle):
     
     @param   longitude:float    The longitude in degrees eastwards
                                 from Greenwich, negative for westwards
-    @param   declination:float  The declination, in degrees
-    @param   hour_angle:float   The solar hour angle, in degrees
-    @return  :float             The Sun's elevation, in degrees
+    @param   declination:float  The declination, in radians
+    @param   hour_angle:float   The solar hour angle, in radians
+    @return  :float             The Sun's elevation, in radians
     '''
     import math
     rc = math.cos(radians(latitude))
@@ -376,7 +376,7 @@ def time_of_solar_noon(t, longitude):
     '''
     Calculates the time of the closest solar noon
     
-    @param   t:float          A time close to the seeked time,
+    @param   t:float          A time close to the sought time,
                               in Julian Centuries
     @param   longitude:float  The longitude in degrees eastwards from
                               Greenwich, negative for westwards
@@ -395,14 +395,14 @@ def time_of_solar_elevation(t, noon, latitude, longitude, elevation):
     Calculates the time the Sun has a specified apparent
     elevation at a geographical position
     
-    @param   t:float          A time close to the seeked time,
+    @param   t:float          A time close to the sought time,
                               in Julian Centuries
     @param   noon:float       The time of the closest solar noon
     @param   latitude:float   The latitude in degrees northwards from
                               the equator, negative for southwards
     @param   longitude:float  The longitude in degrees eastwards from
                               Greenwich, negative for westwards
-    @param   elevation:float  The solar elevation, in degrees
+    @param   elevation:float  The solar elevation, in radians
     @return  :float           The time, in Julian Centuries,
                               of the specified elevation
     '''
@@ -430,7 +430,7 @@ def solar_elevation_from_time(t, latitude, longitude):
                               Greenwich, negative for westwards
     @return  :float           The Sun's apparent at the specified time
                               as seen from the specified position,
-                              measured in degrees
+                              measured in radians
     '''
     rc = julian_centuries_to_julian_day(t)
     rc = (rc - float(int(rc + 0.5)) - 0.5) * 1440

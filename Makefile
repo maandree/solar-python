@@ -45,8 +45,15 @@ endif
 
 
 
+.PHONY: default
+default: base info
+
 .PHONY: all
-all: compiled optimised
+all: base doc
+
+.PHONY: base
+base: compiled optimised
+
 
 .PHONY: compiled
 compiled: $(foreach M,$(SRC),src/__pycache__/$(M).cpython-$(PY_VER).pyc)
@@ -60,6 +67,41 @@ src/__pycache__/%.cpython-$(PY_VER).pyc: src/%.py
 
 src/__pycache__/solar_python.cpython-$(PY_VER).$(PY_OPT2_EXT): src/solar_python.py
 	python -OO -m compileall $<
+
+
+.PHONY: doc
+doc: info pdf dvi ps
+
+.PHONY: info
+info: bin/solar-python.info
+bin/%.info: doc/info/%.texinfo
+	@mkdir -p bin
+	$(MAKEINFO) $<
+	mv $*.info $@
+
+.PHONY: pdf
+pdf: bin/solar-python.pdf
+bin/%.pdf: doc/info/%.texinfo
+	@! test -d obj/pdf || rm -rf obj/pdf
+	@mkdir -p bin obj/pdf
+	cd obj/pdf && texi2pdf ../../"$<" < /dev/null
+	mv obj/pdf/$*.pdf $@
+
+.PHONY: dvi
+dvi: bin/solar-python.dvi
+bin/%.dvi: doc/info/%.texinfo
+	@! test -d obj/dvi || rm -rf obj/dvi
+	@mkdir -p bin obj/dvi
+	cd obj/dvi && $(TEXI2DVI) ../../"$<" < /dev/null
+	mv obj/dvi/$*.dvi $@
+
+.PHONY: ps
+ps: bin/solar-python.ps
+bin/%.ps: doc/info/%.texinfo
+	@! test -d obj/ps || rm -rf obj/ps
+	@mkdir -p bin obj/ps
+	cd obj/ps && texi2pdf --ps ../../"$<" < /dev/null
+	mv obj/ps/$*.ps $@
 
 
 
@@ -106,6 +148,30 @@ install-license: LICENSE
 	install -m644 $^ -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)"
 
 
+.PHONY: install-doc
+install-doc: install-info install-pdf install-dvi install-ps
+
+.PHONY: install-info
+install-info: bin/solar-python.info
+	install -dm755 -- "$(DESTDIR)$(INFODIR)"
+	install -m644 $< -- "$(DESTDIR)$(INFODIR)/$(PKGNAME).info"
+
+.PHONY: install-pdf
+install-pdf: bin/solar-python.pdf
+	install -dm755 -- "$(DESTDIR)$(DOCDIR)"
+	install -m644 -- "$<" "$(DESTDIR)$(DOCDIR)/$(PKGNAME).pdf"
+
+.PHONY: install-dvi
+install-dvi: bin/solar-python.dvi
+	install -dm755 -- "$(DESTDIR)$(DOCDIR)"
+	install -m644 -- "$<" "$(DESTDIR)$(DOCDIR)/$(PKGNAME).dvi"
+
+.PHONY: install-ps
+install-ps: bin/solar-python.ps
+	install -dm755 -- "$(DESTDIR)$(DOCDIR)"
+	install -m644 -- "$<" "$(DESTDIR)$(DOCDIR)/$(PKGNAME).ps"
+
+
 
 .PHONY: uninstall
 uninstall:
@@ -115,6 +181,10 @@ uninstall:
 	-rm -- $(foreach M,$(SRC),"$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/__pycache__/$(M).cpython-$(PY_VER).$(PY_OPT2_EXT)")
 	-rm -- $(foreach M,$(SRC),"$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/__pycache__/$(M).cpython-$(PY_VER).pyc")
 	-rm -- $(foreach M,$(SRC),"$(DESTDIR)$(LIBDIR)/python$(PY_VERSION)/$(M).py")
+	-rm -- "$(DESTDIR)$(INFODIR)/$(PKGNAME).info"
+	-rm -- "$(DESTDIR)$(DOCDIR)/$(PKGNAME).pdf"
+	-rm -- "$(DESTDIR)$(DOCDIR)/$(PKGNAME).dvi"
+	-rm -- "$(DESTDIR)$(DOCDIR)/$(PKGNAME).ps"
 
 
 
