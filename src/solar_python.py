@@ -428,8 +428,8 @@ def solar_elevation_from_time(t, latitude, longitude):
                               the equator, negative for southwards
     @param   longitude:float  The longitude in degrees eastwards from
                               Greenwich, negative for westwards
-    @return  :float           The Sun's apparent at the specified time
-                              as seen from the specified position,
+    @return  :float           The Sun's apparent elevation at the specified
+                              time as seen from the specified position,
                               measured in radians
     '''
     rc = julian_centuries_to_julian_day(t)
@@ -450,8 +450,8 @@ def solar_elevation(latitude, longitude, t = None):
                               Greenwich, negative for westwards
     @param   t:float?         The time in Julian Centuries, `None`
                               for the current time
-    @return  :float           The Sun's apparent at the specified time
-                              as seen from the specified position,
+    @return  :float           The Sun's apparent elevation at the specified
+                              time as seen from the specified position,
                               measured in degrees
     '''
     rc = julian_centuries() if t is None else t
