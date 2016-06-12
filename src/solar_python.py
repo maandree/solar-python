@@ -528,7 +528,7 @@ def solar_prediction(delta, requested, fun, epsilon = 0.000001, span = 0.01, t =
     @param   requested:float      The value returned by `fun` for which to
                                   calculate the time point of occurrence
     @param   fun:(t:float)→float  Function that calculate the data of interest
-    @param   epsilon:float        Error tolerance for `requested`
+    @param   epsilon:float        The tolerance for the result
     @param   span:float           The number of Julian Centuries (0,01 for
                                   one year) to restrict the search to
     @param   t:float?             The time in Julian Centuries, `None` for
@@ -561,7 +561,7 @@ def solar_prediction(delta, requested, fun, epsilon = 0.000001, span = 0.01, t =
         v2 = fun_(t2)
         vm = fun_(tm)
         if abs(v1 - v2) < epsilon:
-            return tm if abs(vm) < epsilon else None
+            return tm
         if v1 < v2:
             if 0 < vm:
                 t2 = tm
@@ -572,7 +572,7 @@ def solar_prediction(delta, requested, fun, epsilon = 0.000001, span = 0.01, t =
                 t2 = tm
             else:
                 t1 = tm
-    return None
+    return tm
 
 
 
