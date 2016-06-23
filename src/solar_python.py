@@ -794,9 +794,9 @@ def sunrise_equation(latitude, longitude, t = None):
     solar_mean_anomaly = int(357.5291 + 0.98560028 * (j_cycle - 2451545)) % 360
     
     # Calculate solar equation of centre
-    equation_of_centre  = 1.9148 * sin(1 * solar_mean_anomaly)
-    equation_of_centre += 0.0200 * sin(2 * solar_mean_anomaly)
-    equation_of_centre += 0.0003 * sin(3 * solar_mean_anomaly)
+    equation_of_centre  = 1.9148 * math.sin(1 * solar_mean_anomaly)
+    equation_of_centre += 0.0200 * math.sin(2 * solar_mean_anomaly)
+    equation_of_centre += 0.0003 * math.sin(3 * solar_mean_anomaly)
     
     # Calculate solar ecliptic longitude
     ecliptic_longitude = (solar_mean_anomaly + 102.9372 + equation_of_centre + 180) % 360
