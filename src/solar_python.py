@@ -40,6 +40,12 @@ SOLAR_ELEVATION_NAUTICAL_DUSK_DAWN = -12.0
         nautical dawn, measured in degrees
 '''
 
+SOLAR_ELEVATION_AMATEUR_ASTRONOMICAL_DUSK_DAWN = -15.0
+'''
+:float  The Sun's elevation at amateur astronomical dusk
+        and amateur astronomical dawn, measured in degrees
+'''
+
 SOLAR_ELEVATION_ASTRONOMICAL_DUSK_DAWN = -18.0
 '''
 :float  The Sun's elevation at astronomical dusk
@@ -58,16 +64,22 @@ SOLAR_ELEVATION_RANGE_CIVIL_TWILIGHT = (-6.0, 0.0)
                  during civil twilight, measured in degrees
 '''
 
-SOLAR_ELEVATION_RANGE_NAUTICAL_TWILIGHT = (-12.0, -6.0)
+SOLAR_ELEVATION_RANGE_NAUTICAL_TWILIGHT = (-12.0, 0.0)
 '''
 :(float, float)  The Sun's lowest and highest elevation
                  during nautical twilight, measured in degrees
 '''
 
-SOLAR_ELEVATION_RANGE_ASTRONOMICAL_TWILIGHT = (-18.0, -12.0)
+SOLAR_ELEVATION_RANGE_ASTRONOMICAL_TWILIGHT = (-18.0, 0.0)
 '''
 :(float, float)  The Sun's lowest and highest elevation during
                  astronomical twilight, measured in degrees
+'''
+
+SOLAR_ELEVATION_RANGE_AMATEUR_ASTRONOMICAL_TWILIGHT = (-18.0, -15.0)
+'''
+:(float, float)  The Sun's lowest and highest elevation during
+                 amateur astronomical twilight, measured in degrees
 '''
 
 
