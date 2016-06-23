@@ -104,6 +104,10 @@ dawn, measured in degrees
 The Sun's elevation at astronomical dusk and
 astronomical dawn, measured in degrees
 
+@item SOLAR_ELEVATION_AMATEUR_ASTRONOMICAL_DUSK_DAWN = -15.0
+The Sun's elevation at amateur astronomical dusk and
+amateur astronomical dawn, measured in degrees
+
 @item SOLAR_ELEVATION_RANGE_TWILIGHT = (-18.0, 0.0)
 The Sun's lowest and highest elevation during all
 periods of twilight, measured in degrees
@@ -112,13 +116,17 @@ periods of twilight, measured in degrees
 The Sun's lowest and highest elevation during
 civil twilight, measured in degrees
 
-@item SOLAR_ELEVATION_RANGE_NAUTICAL_TWILIGHT = (-12.0, -6.0)
+@item SOLAR_ELEVATION_RANGE_NAUTICAL_TWILIGHT = (-12.0, -0.0)
 The Sun's lowest and highest elevation during
 nautical twilight, measured in degrees
 
-@item SOLAR_ELEVATION_RANGE_ASTRONOMICAL_TWILIGHT = (-18.0, -12.0)
+@item SOLAR_ELEVATION_RANGE_ASTRONOMICAL_TWILIGHT = (-18.0, -0.0)
 The Sun's lowest and highest elevation during
 astronomical twilight, measured in degrees
+
+@item SOLAR_ELEVATION_RANGE_AMATEUR_ASTRONOMICAL_TWILIGHT = (-15.0, -18.0)
+The Sun's lowest and highest elevation during
+amateur astronomical twilight, measured in degrees
 @end table
 
 
