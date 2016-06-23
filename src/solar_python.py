@@ -364,7 +364,7 @@ def hour_angle_from_elevation(latitude, declination, elevation):
     rc -= math.sin(radians(latitude)) * math.sin(declination)
     rc /= math.cos(radians(latitude)) * math.cos(declination)
     rc = math.acos(rc)
-    return -rc if (rc < 0) == (elevation < 0) else rc;
+    return -rc if (rc < 0) == (elevation < 0) else rc
 
 
 def elevation_from_hour_angle(latitude, declination, hour_angle):
