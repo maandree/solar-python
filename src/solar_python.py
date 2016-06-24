@@ -605,9 +605,9 @@ def future_equinox(t = None):
     '''
     Predict the time point of the next equinox
     
-    @param   t:float?     The time in Julian Centuries, `None`
-                          for the current time
-    @return  :float       The calculated time point
+    @param   t:float?  The time in Julian Centuries, `None`
+                       for the current time
+    @return  :float    The calculated time point
     '''
     return future_past_equinox(0.01 / 2000, t)
     
@@ -616,9 +616,9 @@ def past_equinox(t = None):
     '''
     Predict the time point of the previous equinox
     
-    @param   t:float?     The time in Julian Centuries, `None`
-                          for the current time
-    @return  :float       The calculated time point
+    @param   t:float?  The time in Julian Centuries, `None`
+                       for the current time
+    @return  :float    The calculated time point
     '''
     return future_past_equinox(0.01 / -2000, t)
 
