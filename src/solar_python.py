@@ -16,19 +16,19 @@
 
 
 
-SOLAR_APPARENT_RADIUS = 32 / 60
+SOLAR_APPARENT_RADIUS = 32.0 / 60.0
 '''
 :float  Approximate apparent size of the Sun in degrees
 '''
 
 
-SOLAR_ELEVATION_PRESUNSET_POSTSUNRISE = 32 / 60
+SOLAR_ELEVATION_PRESUNSET_POSTSUNRISE = 32.0 / 60.0
 '''
 :float  The Sun's elevation the beginning of sunset and
         end of sunrise, measured in degrees
 '''
 
-SOLAR_ELEVATION_SUNSET_SUNRISE = -32 / 60
+SOLAR_ELEVATION_SUNSET_SUNRISE = -32.0 / 60.0
 '''
 :float  The Sun's elevation the (end of) at sunset and
         (beginning of) sunrise, measured in degrees

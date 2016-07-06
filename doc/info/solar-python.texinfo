@@ -85,14 +85,14 @@ Importing @code{solar_python} makes the following
 constants available:
 
 @table @code
-@item SOLAR_APPARENT_RADIUS = 32 / 60
+@item SOLAR_APPARENT_RADIUS = 32.0 / 60.0
 Approximate apparent size of the Sun in degrees.
 
-@item SOLAR_ELEVATION_PRESUNSET_POSTSUNRISE = 32 / 60
+@item SOLAR_ELEVATION_PRESUNSET_POSTSUNRISE = 32.0 / 60.0
 The Sun's elevation at beginning of sunset
 and end of sunrise, measured in degrees.
 
-@item SOLAR_ELEVATION_SUNSET_SUNRISE = -32 / 60
+@item SOLAR_ELEVATION_SUNSET_SUNRISE = -32.0 / 60.0
 The Sun's elevation at (end of) sunset and
 (beginning of) sunrise, measured in degrees.
 
@@ -116,19 +116,19 @@ amateur astronomical dawn, measured in degrees
 The Sun's lowest and highest elevation during all
 periods of twilight, measured in degrees
 
-@item SOLAR_ELEVATION_RANGE_CIVIL_TWILIGHT = (-6.0, -32 / 60)
+@item SOLAR_ELEVATION_RANGE_CIVIL_TWILIGHT = (-6.0, -32.0 / 60.0)
 The Sun's lowest and highest elevation during
 civil twilight, measured in degrees
 
-@item SOLAR_ELEVATION_RANGE_NAUTICAL_TWILIGHT = (-12.0, -32 / 60)
+@item SOLAR_ELEVATION_RANGE_NAUTICAL_TWILIGHT = (-12.0, -32.0 / 60.0)
 The Sun's lowest and highest elevation during
 nautical twilight, measured in degrees
 
-@item SOLAR_ELEVATION_RANGE_ASTRONOMICAL_TWILIGHT = (-18.0, -32 / 60)
+@item SOLAR_ELEVATION_RANGE_ASTRONOMICAL_TWILIGHT = (-18.0, -32.0 / 60.0)
 The Sun's lowest and highest elevation during
 astronomical twilight, measured in degrees
 
-@item SOLAR_ELEVATION_RANGE_AMATEUR_ASTRONOMICAL_TWILIGHT = (-15.0, -32 / 60)
+@item SOLAR_ELEVATION_RANGE_AMATEUR_ASTRONOMICAL_TWILIGHT = (-15.0, -32.0 / 60.0)
 The Sun's lowest and highest elevation during
 amateur astronomical twilight, measured in degrees
 
