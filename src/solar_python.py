@@ -96,6 +96,13 @@ SOLAR_ELEVATION_RANGE_GOLDEN_HOUR = (-4.0, 6.0)
                  approximate.
 '''
 
+SOLAR_ELEVATION_RANGE_BLUE_HOUR = (-6.0, -4.0)
+'''
+:(float, float)  The Sun's lowest and highest elevation during
+                 the blue "hour", measured in degrees. These
+                 elevations are approximate.
+'''
+
 
 
 # The following functions are used to calculate the result for `sun`
