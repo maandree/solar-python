@@ -22,10 +22,16 @@ SOLAR_APPARENT_RADIUS = 32 / 60
 '''
 
 
-SOLAR_ELEVATION_SUNSET_SUNRISE = 0.0
+SOLAR_ELEVATION_PRESUNSET_POSTSUNRISE = 32 / 60
 '''
-:float  The Sun's elevation at sunset and sunrise,
-        measured in degrees
+:float  The Sun's elevation the beginning of sunset and
+        end of sunrise, measured in degrees
+'''
+
+SOLAR_ELEVATION_SUNSET_SUNRISE = -32 / 60
+'''
+:float  The Sun's elevation the (end of) at sunset and
+        (beginning of) sunrise, measured in degrees
 '''
 
 SOLAR_ELEVATION_CIVIL_DUSK_DAWN = -6.0
@@ -58,19 +64,19 @@ SOLAR_ELEVATION_RANGE_TWILIGHT = (-18.0, 0.0)
                  all periods of twilight, measured in degrees
 '''
 
-SOLAR_ELEVATION_RANGE_CIVIL_TWILIGHT = (-6.0, 0.0)
+SOLAR_ELEVATION_RANGE_CIVIL_TWILIGHT = (-6.0, SOLAR_ELEVATION_SUNSET_SUNRISE)
 '''
 :(float, float)  The Sun's lowest and highest elevation
                  during civil twilight, measured in degrees
 '''
 
-SOLAR_ELEVATION_RANGE_NAUTICAL_TWILIGHT = (-12.0, 0.0)
+SOLAR_ELEVATION_RANGE_NAUTICAL_TWILIGHT = (-12.0, SOLAR_ELEVATION_SUNSET_SUNRISE)
 '''
 :(float, float)  The Sun's lowest and highest elevation
                  during nautical twilight, measured in degrees
 '''
 
-SOLAR_ELEVATION_RANGE_ASTRONOMICAL_TWILIGHT = (-18.0, 0.0)
+SOLAR_ELEVATION_RANGE_ASTRONOMICAL_TWILIGHT = (-18.0, SOLAR_ELEVATION_SUNSET_SUNRISE)
 '''
 :(float, float)  The Sun's lowest and highest elevation during
                  astronomical twilight, measured in degrees
