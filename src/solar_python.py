@@ -88,7 +88,7 @@ SOLAR_ELEVATION_RANGE_AMATEUR_ASTRONOMICAL_TWILIGHT = (-18.0, -15.0)
                  amateur astronomical twilight, measured in degrees
 '''
 
-SOLAR_ELEVATION_RANGE_GOLDEN_HOUR = (10.0, 12.0)
+SOLAR_ELEVATION_RANGE_GOLDEN_HOUR = (-4.0, 6.0)
 '''
 :(float, float)  The Sun's lowest and highest elevation during
                  the golden "hour" (also known as magic hour),

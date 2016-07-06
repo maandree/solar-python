@@ -132,7 +132,7 @@ astronomical twilight, measured in degrees
 The Sun's lowest and highest elevation during
 amateur astronomical twilight, measured in degrees
 
-@item SOLAR_ELEVATION_RANGE_GOLDEN_HOUR = (10.0, 12.0)
+@item SOLAR_ELEVATION_RANGE_GOLDEN_HOUR = (-4.0, 6.0)
 The Sun's lowest and highest elevation during
 the golden hour (magic hour), measured in degrees.
 These elevations are approximate.
