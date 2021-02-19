@@ -11,7 +11,7 @@ all:
 info: solar-python.info
 
 solar-python.info: info/solar-python.texinfo info/fdl.texinfo
-	$(MAKEINFO) $<
+	$(MAKEINFO) info/solar-python.texinfo
 
 install:
 	mkdir -p -- "$(DESTDIR)$(PREFIX)/lib/python$(PYTHON_MAJOR).$(PYTHON_MINOR)/site-packages"
