@@ -353,7 +353,7 @@ def equation_of_time(t):
     between apparent and mean solar time
     
     @param   t:float  The time in Julian Centuries
-    @return  :float   The equation of time, in degrees
+    @return  :float   The equation of time, in minutes of time
     '''
     import math
     l = sun_geometric_mean_longitude(t)
