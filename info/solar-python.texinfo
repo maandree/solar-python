@@ -65,10 +65,9 @@ Texts. A copy of the license is included in the section entitled
 @node Overview
 @chapter Overview
 
-@command{solar-python} is Python 3 library that can
+@command{solar-python} is a Python 3 library that can
 be used to calculate information about the Sun's
-position and related data and predict at when time
-solar events occur.
+position and related data, and predict when solar events occur.
 
 Import the module @code{solar_python} to use the
 library.
@@ -240,7 +239,7 @@ between apparent and mean solar time --- in degrees.
 
 @item hour_angle_from_elevation(latitude, declination, elevation)
 Calculates the solar hour angle, in radians, from the Sun's
-elevation, in radians. The Sun's elevation is gived by the
+elevation, in radians. The Sun's elevation is given by the
 parameter @code{elevation}. This functions requires two
 additional parameters:
 @table @code
@@ -253,7 +252,7 @@ The declination, in radians.
 
 @item elevation_from_hour_angle(latitude, declination, hour_angle)
 Calculates the Sun's elevation, in radians, from the solar
-hour angle, in radians. The solar hour angle is gived by the
+hour angle, in radians. The solar hour angle is given by the
 parameter @code{hour_angle}. This functions requires two
 additional parameters:
 @table @code
@@ -313,7 +312,7 @@ negative for westwards.
 The library also provides the high-level functions:
 @table @code
 @item solar_elevation(latitude, longitude, t = None)
-Calculates the Sun's elevation, in degreesm as apparent
+Calculates the Sun's elevation, in degrees as apparent
 from a geographical position, expressed in degrees by the parameters:
 @table @code
 @item latitude
@@ -324,7 +323,7 @@ The longitude in degrees eastwards from Greenwich,
 negative for westwards.
 @end table
 @noindent
-The function also requires to the in Julian Centuries,
+The function also requires the time in Julian Centuries,
 provided via the parameter @code{t}. If @code{t} is
 @code{None}, the current time is used.
 
@@ -332,7 +331,7 @@ provided via the parameter @code{t}. If @code{t} is
 Determine whether solar declination currently is
 so that there can be sunrises and sunsets. If not,
 you either have 24-hour daytime or 24-hour nighttime.
-The function requires to the in Julian Centuries,
+The function requires the time in Julian Centuries,
 provided via the parameter @code{t}, and the latitude,
 provided via the parameter @code{latitude}, in degrees
 northwards from the equator, negative for southwards.
@@ -342,8 +341,8 @@ This function returns a boolean.
 
 @item is_summer(latitude, t = None)
 Determine whether it is summer on the hemisphere
-ont which you are located.
-The function requires to the in Julian Centuries,
+on which you are located.
+The function requires the time in Julian Centuries,
 provided via the parameter @code{t}, and the latitude,
 provided via the parameter @code{latitude}, in degrees
 northwards from the equator, negative for southwards.
@@ -353,8 +352,8 @@ This function returns a boolean.
 
 @item is_winter(latitude, t = None)
 Determine whether it is winter on the hemisphere
-ont which you are located.
-The function requires to the in Julian Centuries,
+on which you are located.
+The function requires the time in Julian Centuries,
 provided via the parameter @code{t}, and the latitude,
 provided via the parameter @code{latitude}, in degrees
 northwards from the equator, negative for southwards.
@@ -438,7 +437,7 @@ Predict the time point, in Julian Centuries, of the next
 or previous time the Sun reaches or reached a specific
 elevation, specified in degrees via the parameter
 @code{elevation}. @code{None} is returned if not found
-withing a year.
+within a year.
 
 The function uses the iteration step size @code{delta}.
 If this value is negative, a past event will be determined,
@@ -448,18 +447,18 @@ and if it is positive, a future event will be predicted.
 Predict the time point, in Julian Centuries, of the next
 time the Sun reaches a specific elevation, specified in
 degrees via the parameter @code{elevation}. @code{None}
-is returned if not found withing a year.
+is returned if not found within a year.
 
 @item past_elevation(latitude, longitude, elevation, t = None)
 Predict the time point, in Julian Centuries, of the previous
 time the Sun reached a specific elevation, specified in
 degrees via the parameter @code{elevation}. @code{None}
-is returned if not found withing a year.
+is returned if not found within a year.
 
 @item future_past_elevation_derivative(delta, latitude, longitude, derivative, t = None)
 Predict the time point, in Julian Centuries, of the next or
 previous time the Sun reaches or reached a specific elevation
-derivative. @code{None} is returned if not found withing a
+derivative. @code{None} is returned if not found within a
 year. The sought derivative is specified via the parameter
 @code{derivative}, expressed in degrees per Julian Century.
 
@@ -470,14 +469,14 @@ if it is positive, a future event will be predicted.
 @item future_elevation_derivative(latitude, longitude, derivative, t = None)
 Predict the time point, in Julian Centuries, of the next time
 the Sun reaches a specific elevation derivative. @code{None}
-is returned if not found withing a year. The sought derivative
+is returned if not found within a year. The sought derivative
 is specified via the parameter @code{derivative}, expressed in
 degrees per Julian Century.
 
 @item past_elevation_derivative(latitude, longitude, derivative, t = None)
 Predict the time point, in Julian Centuries, of the previous
 time the Sun reached a specific elevation derivative.
-@code{None} is returned if not found withing a year. The
+@code{None} is returned if not found within a year. The
 sought derivative is specified via the parameter
 @code{derivative}, expressed in degrees per Julian Century.
 

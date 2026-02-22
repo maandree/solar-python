@@ -106,9 +106,9 @@ SOLAR_ELEVATION_RANGE_BLUE_HOUR = (-6.0, -4.0)
 
 
 # The following functions are used to calculate the result for `sun`
-# (most of them) but could be used for anything else. There name is
+# (most of them) but could be used for anything else. Their names should
 # should tell you enough, `t` (and `noon`) is in Julian Centuries
-# except for in the convertion methods.
+# except for in the conversion methods.
 
 
 def julian_day_to_epoch(t):
@@ -235,11 +235,11 @@ def sun_geometric_mean_longitude(t):
     #     you will need to add 360 if the value is negative. This can
     #     only happen if `t` is negative, which can only happen for date
     #     times before 2000-(01)Jan-01 12:00:00 UTC par division modulo
-    #     implementations with the signess of at least the left operand.
-    #     More precively, it happens between circa 1970-(01)Jan-11
+    #     implementations with the sign of at least the left operand.
+    #     More precisely, it happens between circa 1970-(01)Jan-11
     #     16:09:02 UTC and circa 374702470660351740 seconds before
     #     January 1, 1970 00:00 UTC, which is so far back in time
-    #     it cannot be reliable pinned down to the right year, but it
+    #     it cannot be reliably pinned down to the right year, but it
     #     is without a shadow of a doubt looooong before the Earth
     #     was formed, is right up there with the age of the Milky Way
     #     and the universe itself.
